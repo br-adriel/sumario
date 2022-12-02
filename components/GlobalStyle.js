@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 
+  main {
+    width: 100%;
+  }
+
   p {
     margin-bottom: 0;
   }
