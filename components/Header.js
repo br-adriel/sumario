@@ -1,4 +1,4 @@
-import { Button, Container, ToggleButton } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Header = () => {
@@ -13,11 +13,14 @@ const Header = () => {
 
 const HeaderTag = styled.header`
   width: 100%;
+  padding: 5px;
 
   h1 {
+    text-align: center;
     font-family: 'Great Vibes';
     font-weight: bold;
     padding: 10px 20px;
+    margin: 0;
   }
 `;
 
