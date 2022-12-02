@@ -1,0 +1,31 @@
+{
+  "name": "sumario",
+  "version": "1.0.0",
+  "description": "Mini projeto de catálogo de livros desenvolvido para a disciplina de Programação Web do curso de Sistemas de Informação da UFRN",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/br-adriel/sumario.git"
+  },
+  "keywords": [
+    "book",
+    "author",
+    "library"
+  ],
+  "author": "Adriel Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/br-adriel/sumario/issues"
+  },
+  "homepage": "https://github.com/br-adriel/sumario#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "next": "^13.0.5",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.6.0"
+  }
+}
