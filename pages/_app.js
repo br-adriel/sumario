@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
-import Header from '../components/Header';
 import GlobalStyle from '../components/GlobalStyle';
 import Head from 'next/head';
 import Footer from '../components/Footer';
@@ -16,7 +15,7 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       <GlobalStyle />
       <main>
-        <Container>
+        <Container className='py-2'>
           <Component {...pageProps} />
         </Container>
       </main>
