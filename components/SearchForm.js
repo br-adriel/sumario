@@ -40,6 +40,7 @@ const FormTag = styled.form`
   align-items: center;
   gap: 4px;
   width: 100%;
+  margin-bottom: 6px;
 `;
 
 export default SearchForm;
