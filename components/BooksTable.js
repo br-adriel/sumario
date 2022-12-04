@@ -4,9 +4,12 @@ import { useState } from 'react';
 import GenericTable from './GenericTable';
 import SortButton from './SortButton';
 import sortArray from 'sort-array';
+import { useContext } from 'react';
+import SelectedBookContext from '../context/SelectedBookContext';
 
 const BooksTable = ({ books }) => {
   const [listedBooks, setListedBooks] = useState([]);
+  const { setSelectedBook } = useContext(SelectedBookContext);
 
   useEffect(() => {
     setListedBooks(books && books.docs ? books.docs : []);
@@ -20,7 +23,11 @@ const BooksTable = ({ books }) => {
 
   const renderTableLines = (book) => {
     return (
-      <tr key={book.key}>
+      <tr
+        key={book.key}
+        style={{ cursor: 'pointer' }}
+        onClick={() => setSelectedBook(book)}
+      >
         <td>{book.title ? book.title : '-'}</td>
         <td>{book.author_name ? book.author_name.join(', ') : '-'}</td>
         <td>{book.first_publish_year ? book.first_publish_year : '-'}</td>
