@@ -13,7 +13,7 @@ const SearchForm = ({ onSubmit }) => {
       <InputGroup>
         <Form.Control
           type='search'
-          name='conteudo'
+          name='busca'
           id={`form${inputId}`}
           className='form-control'
           autoFocus
