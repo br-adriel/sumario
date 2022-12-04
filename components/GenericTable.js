@@ -13,7 +13,9 @@ const GenericTable = ({
         <thead>
           <tr>
             {cabecalhos.map((cab, i) => (
-              <th key={i}>{cab}</th>
+              <th key={i} className='text-center'>
+                {cab}
+              </th>
             ))}
           </tr>
         </thead>
