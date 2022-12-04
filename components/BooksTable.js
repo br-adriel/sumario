@@ -75,11 +75,17 @@ const BooksTable = ({ books }) => {
   if (!books || !books.docs) return null;
   if (!books.docs.length) return <h2> Nenhum livro encontrado</h2>;
   return (
-    <GenericTable
-      cabecalhos={cabecalhos}
-      conteudo={listedBooks}
-      generateLines={renderTableLines}
-    />
+    <>
+      <h2>
+        <b>{books.numFound} </b>
+        <small>itens encontrados</small>
+      </h2>
+      <GenericTable
+        cabecalhos={cabecalhos}
+        conteudo={listedBooks}
+        generateLines={renderTableLines}
+      />
+    </>
   );
 };
 
