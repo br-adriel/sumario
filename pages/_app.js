@@ -3,8 +3,11 @@ import { Container } from 'react-bootstrap';
 import GlobalStyle from '../components/GlobalStyle';
 import Head from 'next/head';
 import Footer from '../components/Footer';
+import SelectedBookContext from '../context/SelectedBookContext';
+import { useState } from 'react';
 
 export default function MyApp({ Component, pageProps }) {
+  const [selectedBook, setSelectedBook] = useState({});
   return (
     <>
       <Head>
@@ -15,9 +18,11 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       <GlobalStyle />
       <main>
-        <Container className='py-2'>
-          <Component {...pageProps} />
-        </Container>
+        <SelectedBookContext.Provider value={{ selectedBook, setSelectedBook }}>
+          <Container className='py-2'>
+            <Component {...pageProps} />
+          </Container>
+        </SelectedBookContext.Provider>
       </main>
       <Footer />
     </>
