@@ -9,7 +9,7 @@ import SelectedBookContext from '../context/SelectedBookContext';
 
 const BooksTable = ({ books }) => {
   const [listedBooks, setListedBooks] = useState([]);
-  const { setSelectedBook } = useContext(SelectedBookContext);
+  const { selectedBook, setSelectedBook } = useContext(SelectedBookContext);
 
   useEffect(() => {
     setListedBooks(books && books.docs ? books.docs : []);
@@ -26,7 +26,17 @@ const BooksTable = ({ books }) => {
       <tr
         key={book.key}
         style={{ cursor: 'pointer' }}
-        onClick={() => setSelectedBook(book)}
+        className={
+          !!selectedBook.key && selectedBook.key === book.key
+            ? 'text-primary table-active'
+            : ''
+        }
+        onClick={() =>
+          setSelectedBook((prev) => {
+            if (prev.key === book.key) return {};
+            return book;
+          })
+        }
       >
         <td>{book.title ? book.title : '-'}</td>
         <td>{book.author_name ? book.author_name.join(', ') : '-'}</td>
