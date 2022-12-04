@@ -17,7 +17,7 @@ const BookPreview = () => {
             />
           </Col>
         ) : null}
-        <Col xs='auto' md='12'>
+        <Col className='col' md='12'>
           <Card.Body>
             <Card.Title>
               {selectedBook.title}{' '}
