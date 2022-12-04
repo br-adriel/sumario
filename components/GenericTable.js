@@ -9,7 +9,7 @@ const GenericTable = ({
   return (
     <Col>
       {titulo ? <h3>{titulo}</h3> : null}
-      <Table striped bordered responsive>
+      <Table striped bordered responsive hover>
         <thead>
           <tr>
             {cabecalhos.map((cab, i) => (
