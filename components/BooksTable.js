@@ -1,11 +1,7 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import GenericTable from './GenericTable';
-import SortButton from './SortButton';
+import { useContext, useEffect, useState } from 'react';
 import sortArray from 'sort-array';
-import { useContext } from 'react';
 import SelectedBookContext from '../context/SelectedBookContext';
+import GenericTable from './GenericTable';
 
 const BooksTable = ({ books }) => {
   const [listedBooks, setListedBooks] = useState([]);
@@ -46,30 +42,21 @@ const BooksTable = ({ books }) => {
   };
 
   const cabecalhos = [
-    <p>
-      <span>Título</span>
-      <SortButton
-        className='btn-sm'
-        ascendingFunc={() => orderBooks('title')}
-        descendingFunc={() => orderBooks('title', true)}
-      />
-    </p>,
-    <p>
-      <span>Autor</span>
-      <SortButton
-        className='btn-sm'
-        ascendingFunc={() => orderBooks('author_name')}
-        descendingFunc={() => orderBooks('author_name', true)}
-      />
-    </p>,
-    <p>
-      <span>Ano</span>
-      <SortButton
-        className='btn-sm'
-        ascendingFunc={() => orderBooks('first_publish_year')}
-        descendingFunc={() => orderBooks('first_publish_year', true)}
-      />
-    </p>,
+    {
+      title: 'Título',
+      orderAsc: () => orderBooks('title'),
+      orderDesc: () => orderBooks('title', true),
+    },
+    {
+      title: 'Autor',
+      orderAsc: () => orderBooks('author_name'),
+      orderDesc: () => orderBooks('author_name', true),
+    },
+    {
+      title: 'Ano',
+      orderAsc: () => orderBooks('first_publish_year'),
+      orderDesc: () => orderBooks('first_publish_year', true),
+    },
   ];
 
   if (!books || !books.docs) return null;

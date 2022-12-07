@@ -1,8 +1,9 @@
 import { Col, Table } from 'react-bootstrap';
+import SortButton from './SortButton';
 
 const GenericTable = ({
   titulo = undefined,
-  cabecalhos,
+  cabecalhos = [],
   conteudo,
   generateLines,
 }) => {
@@ -14,7 +15,12 @@ const GenericTable = ({
           <tr>
             {cabecalhos.map((cab, i) => (
               <th key={i} className='text-center'>
-                {cab}
+                <span>{cab.title}</span>
+                <SortButton
+                  className='btn-sm'
+                  ascendingFunc={cab.orderAsc}
+                  descendingFunc={cab.orderDesc}
+                />
               </th>
             ))}
           </tr>
