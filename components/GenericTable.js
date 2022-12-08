@@ -16,11 +16,13 @@ const GenericTable = ({
             {cabecalhos.map((cab, i) => (
               <th key={i} className='text-center'>
                 <span>{cab.title}</span>
-                <SortButton
-                  className='btn-sm'
-                  ascendingFunc={cab.orderAsc}
-                  descendingFunc={cab.orderDesc}
-                />
+                {cab.orderAsc && cab.orderDesc ? (
+                  <SortButton
+                    className='btn-sm'
+                    ascendingFunc={cab.orderAsc}
+                    descendingFunc={cab.orderDesc}
+                  />
+                ) : null}
               </th>
             ))}
           </tr>
