@@ -44,7 +44,7 @@ const Home = () => {
         </StickyTop>
         <BookPreview />
       </StickyCol>
-      <Col xs='12' md='8'>
+      <Col xs='12' md='8' className='pb-5'>
         <ScrollInfinito
           onScrollEnd={() => {
             pageNumber.current = pageNumber.current + 1;
