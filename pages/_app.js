@@ -19,7 +19,7 @@ export default function MyApp({ Component, pageProps }) {
       <GlobalStyle />
       <main>
         <SelectedBookContext.Provider value={{ selectedBook, setSelectedBook }}>
-          <Container className='py-2'>
+          <Container>
             <Component {...pageProps} />
           </Container>
         </SelectedBookContext.Provider>
