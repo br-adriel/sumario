@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import SearchForm from '../components/SearchForm';
 import SelectedBookContext from '../context/SelectedBookContext';
 import ScrollInfinito from '../components/ScrollInfinito';
+import styled from 'styled-components';
 
 const Home = () => {
   const [url, setUrl] = useState('');
@@ -36,11 +37,13 @@ const Home = () => {
 
   return (
     <Row>
-      <Col xs='12' md='4'>
-        <Header />
-        <SearchForm onSubmit={searchFormSubmit} />
+      <StickyCol xs='12' md='4'>
+        <StickyTop>
+          <Header />
+          <SearchForm onSubmit={searchFormSubmit} />
+        </StickyTop>
         <BookPreview />
-      </Col>
+      </StickyCol>
       <Col xs='12' md='8'>
         <ScrollInfinito
           onScrollEnd={() => {
@@ -60,5 +63,30 @@ const Home = () => {
     </Row>
   );
 };
+
+const StickyTop = styled.div`
+  @media screen and (min-width: 768px) {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fff;
+    padding: 5px 0;
+  }
+`;
+
+const StickyCol = styled(Col)`
+  @media screen and (min-width: 768px) {
+    position: sticky;
+    top: 0;
+    overflow-y: auto;,
+    overflow-x: hidden;
+    scrollbar-width: none;
+    height: 100vh;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`;
 
 export default Home;
