@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import styled from 'styled-components';
 import useSWR from 'swr';
 import BookPreview from '../components/BookPreview';
 import BooksTable from '../components/BooksTable';
 import Header from '../components/Header';
+import ScrollInfinito from '../components/ScrollInfinito';
 import SearchForm from '../components/SearchForm';
 import SelectedBookContext from '../context/SelectedBookContext';
-import ScrollInfinito from '../components/ScrollInfinito';
-import styled from 'styled-components';
 
 const Home = () => {
   const [url, setUrl] = useState('');
@@ -37,7 +37,7 @@ const Home = () => {
 
   return (
     <Row>
-      <StickyCol xs='12' md='4'>
+      <StickyCol xs='12' md='4' className='pb-md-5 mb-md-3'>
         <StickyTop>
           <Header />
           <SearchForm onSubmit={searchFormSubmit} />
