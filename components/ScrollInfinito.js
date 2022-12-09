@@ -1,4 +1,5 @@
 import { useEffect, useId } from 'react';
+import styled from 'styled-components';
 
 const ScrollInfinito = ({ children, onScrollEnd }) => {
   const htmlId = useId();
@@ -15,9 +16,14 @@ const ScrollInfinito = ({ children, onScrollEnd }) => {
   return (
     <div>
       {children}
-      <div id={`scrollLoad${htmlId}`} />
+      <EndingDiv id={`scrollLoad${htmlId}`} />
     </div>
   );
 };
+
+const EndingDiv = styled.div`
+  width: 100%;
+  height: 2px;
+`;
 
 export default ScrollInfinito;
