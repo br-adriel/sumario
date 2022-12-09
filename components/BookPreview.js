@@ -30,7 +30,7 @@ const BookPreview = () => {
               </Card.Text>
             ) : null}
             <Link
-              href={`/${selectedBook.key.split('/')[2]}`}
+              href={`/${selectedBook.key.split('/')[2]}/1`}
               className='btn btn-primary mt-2'
             >
               Mais informações
