@@ -5,9 +5,11 @@ import Head from 'next/head';
 import Footer from '../components/Footer';
 import SelectedBookContext from '../context/SelectedBookContext';
 import { useState } from 'react';
+import BooksDataContext from '../context/BooksDataContext';
 
 export default function MyApp({ Component, pageProps }) {
   const [selectedBook, setSelectedBook] = useState({});
+  const [booksData, setBooksData] = useState({});
   return (
     <>
       <Head>
@@ -19,9 +21,11 @@ export default function MyApp({ Component, pageProps }) {
       <GlobalStyle />
       <main>
         <SelectedBookContext.Provider value={{ selectedBook, setSelectedBook }}>
-          <Container>
-            <Component {...pageProps} />
-          </Container>
+          <BooksDataContext.Provider value={{ booksData, setBooksData }}>
+            <Container>
+              <Component {...pageProps} />
+            </Container>
+          </BooksDataContext.Provider>
         </SelectedBookContext.Provider>
       </main>
       <Footer />

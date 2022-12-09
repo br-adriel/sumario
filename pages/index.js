@@ -7,11 +7,12 @@ import BooksTable from '../components/BooksTable';
 import Header from '../components/Header';
 import ScrollInfinito from '../components/ScrollInfinito';
 import SearchForm from '../components/SearchForm';
+import BooksDataContext from '../context/BooksDataContext';
 import SelectedBookContext from '../context/SelectedBookContext';
 
 const Home = () => {
   const [url, setUrl] = useState('');
-  const [booksData, setBooksData] = useState({});
+  const { booksData, setBooksData } = useContext(BooksDataContext);
   const { setSelectedBook } = useContext(SelectedBookContext);
   const pageNumber = useRef(1);
 
