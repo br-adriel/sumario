@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import SelectedBookContext from '../context/SelectedBookContext';
 
@@ -8,7 +7,7 @@ const BookPreview = () => {
   const { selectedBook } = useContext(SelectedBookContext);
   if (!Object.keys(selectedBook).length) return null;
   return (
-    <Card className='mb-2'>
+    <Card className='mb-2 mb-md-0'>
       <Row>
         {selectedBook.cover_i ? (
           <Col xs='5' md='12'>
