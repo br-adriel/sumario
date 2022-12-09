@@ -3,18 +3,16 @@ import sortArray from 'sort-array';
 import SelectedBookContext from '../context/SelectedBookContext';
 import joinDocs from '../utils/joinDocs';
 import GenericTable from './GenericTable';
+import Warning from '../components/Warning';
 
 const BooksTable = ({ books }) => {
   const query = useRef('');
   const booksCount = useRef(0);
-  const firstRender = useRef(true);
   const [listedBooks, setListedBooks] = useState([]);
   const { selectedBook, setSelectedBook } = useContext(SelectedBookContext);
 
   useEffect(() => {
     if (books) {
-      firstRender.current = false;
-
       if (query.current === books.q) {
         if (books.docs && books.docs.length) {
           setListedBooks((prev) => {
@@ -79,8 +77,7 @@ const BooksTable = ({ books }) => {
     },
   ];
 
-  if (firstRender.current) return null;
-  if (!listedBooks.length) return <h2> Nenhum livro encontrado</h2>;
+  if (!listedBooks.length) return <Warning message='Nenhum livro encontrado' />;
   return (
     <>
       <h2>
