@@ -2,10 +2,11 @@ import Link from 'next/link';
 import React, { useContext } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import SelectedBookContext from '../context/SelectedBookContext';
+import EmptySelection from './EmptySelection';
 
 const BookPreview = () => {
   const { selectedBook } = useContext(SelectedBookContext);
-  if (!Object.keys(selectedBook).length) return null;
+  if (!Object.keys(selectedBook).length) return <EmptySelection />;
   return (
     <Card className='mb-2 mb-md-0'>
       <Row>
