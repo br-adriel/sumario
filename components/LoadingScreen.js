@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Loading from './Loading';
 
-const LoadingScreen = () => {
+const LoadingScreen = ({ onlyText = false }) => {
   const reticencias = ['', '.', '..', '...'];
   const [index, setIndex] = useState(0);
 
@@ -16,6 +17,7 @@ const LoadingScreen = () => {
 
   return (
     <Wrapper>
+      {onlyText ? null : <Loading />}
       <h4>Carregando{reticencias[index]}</h4>
     </Wrapper>
   );
