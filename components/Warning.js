@@ -13,7 +13,7 @@ const Warning = ({ message }) => {
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
-  height: calc(100vh - 20px);
+  height: 90vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
