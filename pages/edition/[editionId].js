@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import AuthorCard from '../../components/AuthorCard';
 import EditionCard from '../../components/EditionCard';
 import Header from '../../components/Header';
+import LoadingScreen from '../../components/LoadingScreen';
+import Warning from '../../components/Warning';
 import fecthEdition from '../../utils/fetchEdition';
 
 const Edicao = ({ data, error }) => {
@@ -13,8 +15,21 @@ const Edicao = ({ data, error }) => {
     setEdicao(data);
   }, [data]);
 
-  if (error) return <h1>Edição desconhecida</h1>;
-  if (!edicao) return <h1>Carregando...</h1>;
+  if (error || !edicao)
+    return (
+      <>
+        <Row>
+          <Col>
+            <Header />
+            {!edicao ? (
+              <LoadingScreen />
+            ) : (
+              <Warning message='Edição desconhecida' />
+            )}
+          </Col>
+        </Row>
+      </>
+    );
   return (
     <>
       <Row>
