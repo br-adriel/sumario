@@ -34,20 +34,18 @@ const Home = () => {
     { title: 'Título' },
     { title: 'Ano de publicação' },
     { title: 'Editora' },
-    { title: 'Idioma' },
   ];
 
   const renderLines = (edicao, i) => (
     <tr key={edicao.key}>
       <td>{50 * Number(page) - 50 + i + 1}</td>
-      <td>{edicao.title}</td>
+      <td>
+        <Link href={`/edition/${edicao.key.split('/')[2]}`}>
+          {edicao.title}
+        </Link>
+      </td>
       <td>{edicao.publish_date ? edicao.publish_date : '-'}</td>
       <td>{edicao.publishers ? edicao.publishers.join(', ') : '-'}</td>
-      <td>
-        {edicao.languages
-          ? edicao.languages.map((l) => l.key.split('/')[2]).join(', ')
-          : '-'}
-      </td>
     </tr>
   );
 
