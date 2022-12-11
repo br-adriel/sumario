@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import EditionsTableLine from '../../components/EditionsTableLine';
 import GenericTable from '../../components/GenericTable';
 import Header from '../../components/Header';
+import LoadingScreen from '../../components/LoadingScreen';
+import Warning from '../../components/Warning';
 import getYearFromDateString from '../../utils/getYearFromDateString';
 
 const Home = ({ data, error }) => {
@@ -37,8 +39,21 @@ const Home = ({ data, error }) => {
     );
   };
 
-  if (error) return <h1>Obra desconhecida</h1>;
-  if (!bookId || !page || !editionsData.entries) return <h1>Carregando...</h1>;
+  if (error || !bookId || !page || !editionsData.entries)
+    return (
+      <>
+        <Row>
+          <Col>
+            <Header />
+            {error ? (
+              <Warning message='Obra desconhecida' />
+            ) : (
+              <LoadingScreen />
+            )}
+          </Col>
+        </Row>
+      </>
+    );
   if (data && data.entries.length === 0)
     return <h1>Nenhuma edição encontrada</h1>;
   return (
