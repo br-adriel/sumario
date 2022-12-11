@@ -7,6 +7,7 @@ import Header from '../../components/Header';
 import LoadingScreen from '../../components/LoadingScreen';
 import Warning from '../../components/Warning';
 import fecthEdition from '../../utils/fetchEdition';
+import Head from 'next/head';
 
 const Edicao = ({ data, error }) => {
   const [edicao, setEdicao] = useState();
@@ -22,9 +23,19 @@ const Edicao = ({ data, error }) => {
           <Col>
             <Header />
             {!edicao ? (
-              <LoadingScreen />
+              <>
+                <Head>
+                  <title>Carregando... - Sumário</title>
+                </Head>
+                <LoadingScreen />
+              </>
             ) : (
-              <Warning message='Edição desconhecida' />
+              <>
+                <Head>
+                  <title>Edição desconhecida - Sumário</title>
+                </Head>
+                <Warning message='Edição desconhecida' />
+              </>
             )}
           </Col>
         </Row>
@@ -32,6 +43,9 @@ const Edicao = ({ data, error }) => {
     );
   return (
     <>
+      <Head>
+        <title>{edicao.title} - Sumário</title>
+      </Head>
       <Row>
         <Col xs='12'>
           <Header />

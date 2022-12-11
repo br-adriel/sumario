@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -46,9 +47,19 @@ const Home = ({ data, error }) => {
           <Col>
             <Header />
             {error ? (
-              <Warning message='Obra desconhecida' />
+              <>
+                <Head>
+                  <title>Obra desconhecida - Sumário</title>
+                </Head>
+                <Warning message='Obra desconhecida' />
+              </>
             ) : (
-              <LoadingScreen />
+              <>
+                <Head>
+                  <title>Carregando... - Sumário</title>
+                </Head>
+                <LoadingScreen />
+              </>
             )}
           </Col>
         </Row>
@@ -58,6 +69,15 @@ const Home = ({ data, error }) => {
     return <h1>Nenhuma edição encontrada</h1>;
   return (
     <>
+      <Head>
+        <title>
+          {editionsData.size}
+          {editionsData.size == 1
+            ? ' edição encontrada '
+            : ' edições encontradas '}
+          - Sumário
+        </title>
+      </Head>
       <Row>
         <Col>
           <Header />
