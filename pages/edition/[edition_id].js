@@ -41,7 +41,7 @@ const Edicao = () => {
           </section>
           {!edicao.authors ? null : (
             <section>
-              <h2>Autoria</h2>
+              <h2>Autores</h2>
               <AuthorsWrapper>
                 {edicao.authors.map((author) => (
                   <AuthorCard author={author} key={author.key} />
