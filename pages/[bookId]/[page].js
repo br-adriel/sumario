@@ -1,11 +1,12 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
-import useSWR from 'swr';
-import Header from '../../components/Header';
-import GenericTable from '../../components/GenericTable';
-import Link from 'next/link';
+import { ButtonGroup, Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
+import useSWR from 'swr';
+import GenericTable from '../../components/GenericTable';
+import Header from '../../components/Header';
+import getYearFromDateString from '../../utils/getYearFromDateString';
 
 const Home = () => {
   const router = useRouter();
@@ -44,7 +45,9 @@ const Home = () => {
           {edicao.title}
         </Link>
       </td>
-      <td>{edicao.publish_date ? edicao.publish_date : '-'}</td>
+      <td>
+        {edicao.publish_date ? getYearFromDateString(edicao.publish_date) : '-'}
+      </td>
       <td>{edicao.publishers ? edicao.publishers.join(', ') : '-'}</td>
     </tr>
   );
