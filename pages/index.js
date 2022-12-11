@@ -31,7 +31,7 @@ const Home = () => {
     e.preventDefault();
     const busca = e.target['busca'].value.trim();
     pageNumber.current = 1;
-    const newUrl = `http://openlibrary.org/search.json?q=${busca}&fields=key,author_name,first_publish_year,title,cover_i&page=1`;
+    const newUrl = `https://openlibrary.org/search.json?q=${busca}&fields=key,author_name,first_publish_year,title,cover_i&page=1`;
     setSelectedBook({});
     setBooksFetchUrl(newUrl);
   };
