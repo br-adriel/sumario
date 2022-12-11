@@ -10,6 +10,8 @@ import BooksDataContext from '../context/BooksDataContext';
 export default function MyApp({ Component, pageProps }) {
   const [selectedBook, setSelectedBook] = useState({});
   const [booksData, setBooksData] = useState({});
+  const [searchValue, setSearchValue] = useState('');
+  const [booksFetchUrl, setBooksFetchUrl] = useState('');
   return (
     <>
       <Head>
@@ -20,8 +22,12 @@ export default function MyApp({ Component, pageProps }) {
       </Head>
       <GlobalStyle />
       <main>
-        <SelectedBookContext.Provider value={{ selectedBook, setSelectedBook }}>
-          <BooksDataContext.Provider value={{ booksData, setBooksData }}>
+        <SelectedBookContext.Provider
+          value={{ selectedBook, setSelectedBook, searchValue, setSearchValue }}
+        >
+          <BooksDataContext.Provider
+            value={{ booksData, setBooksData, booksFetchUrl, setBooksFetchUrl }}
+          >
             <Container>
               <Component {...pageProps} />
             </Container>

@@ -1,14 +1,17 @@
+import { useContext } from 'react';
 import { useId } from 'react';
-import { Button, Form, FormGroup, InputGroup } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 import styled from 'styled-components';
+import SelectedBookContext from '../context/SelectedBookContext';
 
 const SearchForm = ({ onSubmit }) => {
   const inputId = useId();
+  const { searchValue, setSearchValue } = useContext(SelectedBookContext);
   return (
     <FormTag onSubmit={onSubmit}>
       <label htmlFor={`form${inputId}`} className='visually-hidden'>
-        Pesquisar livro:
+        Pesquisar obra:
       </label>
       <InputGroup>
         <Form.Control
@@ -16,6 +19,8 @@ const SearchForm = ({ onSubmit }) => {
           name='busca'
           id={`form${inputId}`}
           className='form-control'
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           autoFocus
         />
       </InputGroup>

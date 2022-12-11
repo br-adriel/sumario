@@ -11,12 +11,12 @@ import BooksDataContext from '../context/BooksDataContext';
 import SelectedBookContext from '../context/SelectedBookContext';
 
 const Home = () => {
-  const [url, setUrl] = useState('');
-  const { booksData, setBooksData } = useContext(BooksDataContext);
+  const { booksData, setBooksData, booksFetchUrl, setBooksFetchUrl } =
+    useContext(BooksDataContext);
   const { setSelectedBook } = useContext(SelectedBookContext);
   const pageNumber = useRef(1);
 
-  const { data, error } = useSWR(url, async (url) => {
+  const { data, error } = useSWR(booksFetchUrl, async (url) => {
     if (url === '' || error) return { docs: [], q: '' };
     const res = await fetch(url);
     const json = await res.json();
@@ -33,7 +33,7 @@ const Home = () => {
     pageNumber.current = 1;
     const newUrl = `http://openlibrary.org/search.json?q=${busca}&fields=key,author_name,first_publish_year,title,cover_i&page=1`;
     setSelectedBook({});
-    setUrl(newUrl);
+    setBooksFetchUrl(newUrl);
   };
 
   return (
@@ -49,7 +49,7 @@ const Home = () => {
         <ScrollInfinito
           onScrollEnd={() => {
             pageNumber.current = pageNumber.current + 1;
-            setUrl((prev) => {
+            setBooksFetchUrl((prev) => {
               if (prev.indexOf('&page=') !== -1) {
                 const base = `${prev.split('&page=')[0]}`;
                 return `${base}&page=${pageNumber.current}`;
