@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { ButtonGroup, Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
+import EditionsTableLine from '../../components/EditionsTableLine';
 import GenericTable from '../../components/GenericTable';
 import Header from '../../components/Header';
 import getYearFromDateString from '../../utils/getYearFromDateString';
@@ -25,22 +26,14 @@ const Home = ({ data, error }) => {
 
   const renderLines = (edicao, i) => {
     const indice = 50 * Number(page) - 50 + i + 1;
-    let ano;
     if (edicao.publish_date) {
-      ano = getYearFromDateString(edicao.publish_date);
-      ano = Number.isNaN(ano) ? edicao.publish_date : ano;
+      const ano = getYearFromDateString(edicao.publish_date);
+      edicao.publish_date = Number.isNaN(ano) ? edicao.publish_date : ano;
+    } else {
+      edicao.publish_date = '-';
     }
     return (
-      <tr key={edicao.key}>
-        <td>{indice}</td>
-        <td>
-          <Link href={`/edition/${edicao.key.split('/')[2]}`}>
-            {edicao.title}
-          </Link>
-        </td>
-        <td>{edicao.publish_date ? ano : '-'}</td>
-        <td>{edicao.publishers ? edicao.publishers.join(', ') : '-'}</td>
-      </tr>
+      <EditionsTableLine key={edicao.key} edition={edicao} indice={indice} />
     );
   };
 
