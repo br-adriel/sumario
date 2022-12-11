@@ -23,20 +23,26 @@ const Home = ({ data, error }) => {
     { title: 'Editora' },
   ];
 
-  const renderLines = (edicao, i) => (
-    <tr key={edicao.key}>
-      <td>{50 * Number(page) - 50 + i + 1}</td>
-      <td>
-        <Link href={`/edition/${edicao.key.split('/')[2]}`}>
-          {edicao.title}
-        </Link>
-      </td>
-      <td>
-        {edicao.publish_date ? getYearFromDateString(edicao.publish_date) : '-'}
-      </td>
-      <td>{edicao.publishers ? edicao.publishers.join(', ') : '-'}</td>
-    </tr>
-  );
+  const renderLines = (edicao, i) => {
+    const indice = 50 * Number(page) - 50 + i + 1;
+    let ano;
+    if (edicao.publish_date) {
+      ano = getYearFromDateString(edicao.publish_date);
+      ano = Number.isNaN(ano) ? edicao.publish_date : ano;
+    }
+    return (
+      <tr key={edicao.key}>
+        <td>{indice}</td>
+        <td>
+          <Link href={`/edition/${edicao.key.split('/')[2]}`}>
+            {edicao.title}
+          </Link>
+        </td>
+        <td>{edicao.publish_date ? ano : '-'}</td>
+        <td>{edicao.publishers ? edicao.publishers.join(', ') : '-'}</td>
+      </tr>
+    );
+  };
 
   if (error) return <h1>Obra desconhecida</h1>;
   if (!bookId || !page || !editionsData.entries) return <h1>Carregando...</h1>;
