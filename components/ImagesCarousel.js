@@ -1,9 +1,8 @@
-import React from 'react';
 import { Carousel } from 'react-bootstrap';
 
-const EditionCovers = ({ imagens }) => {
+const ImagesCarousel = ({ imagens }) => {
   return (
-    <Carousel indicators={false} controls={false}>
+    <Carousel indicators={false} controls={false} fade>
       {imagens.map((imagem) => {
         return (
           <Carousel.Item key={imagem}>
@@ -19,4 +18,4 @@ const EditionCovers = ({ imagens }) => {
   );
 };
 
-export default EditionCovers;
+export default ImagesCarousel;
