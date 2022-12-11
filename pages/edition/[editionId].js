@@ -56,11 +56,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { edition_id } = params;
+  const { editionId } = params;
 
   try {
     const data = await fecthEdition(
-      `https://openlibrary.org/books/${edition_id}.json`
+      `https://openlibrary.org/books/${editionId}.json`
     );
     return {
       props: {
