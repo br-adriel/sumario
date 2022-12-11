@@ -1,30 +1,16 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ButtonGroup, Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import useSWR from 'swr';
 import GenericTable from '../../components/GenericTable';
 import Header from '../../components/Header';
 import getYearFromDateString from '../../utils/getYearFromDateString';
 
-const Home = () => {
+const Home = ({ data, error }) => {
   const router = useRouter();
   const { bookId, page } = router.query;
   const [editionsData, setEditionsData] = useState({});
-  const [url, setUrl] = useState('');
-
-  useEffect(
-    () => setUrl(`/works/${bookId}/editions.json?offset=${page * 50 - 50}`),
-    [bookId, page]
-  );
-
-  const { data, error } = useSWR(url, async (url) => {
-    if (url === '') return undefined;
-    const res = await fetch(`https://openlibrary.org${url}`);
-    const json = await res.json();
-    return json;
-  });
 
   useEffect(() => {
     setEditionsData((prev) => (data ? data : prev));
@@ -52,7 +38,7 @@ const Home = () => {
     </tr>
   );
 
-  if (error || (data && data.error)) return <h1>Um erro ocorreu</h1>;
+  if (error) return <h1>Obra desconhecida</h1>;
   if (!bookId || !page || !editionsData.entries) return <h1>Carregando...</h1>;
   if (data && data.entries.length === 0)
     return <h1>Nenhuma edição encontrada</h1>;
@@ -109,5 +95,48 @@ const BtnGroupWrapper = styled.div`
   justify-content: flex-end;
   width: 100%;
 `;
+
+export async function getStaticPaths() {
+  const paths = [
+    { params: { bookId: 'OL24457534W', page: '1' } },
+    { params: { bookId: 'OL5735360W', page: '1' } },
+    { params: { bookId: 'OL17852712W', page: '1' } },
+    { params: { bookId: 'OL20651847W', page: '1' } },
+    { params: { bookId: 'OL19634654W', page: '1' } },
+    { params: { bookId: 'OL5735363W', page: '1' } },
+    { params: { bookId: 'OL15413843W', page: '1' } },
+    { params: { bookId: 'OL5843614W', page: '1' } },
+    { params: { bookId: 'OL103123W', page: '1' } },
+    { params: { bookId: 'OL1168007W', page: '1' } },
+    { params: { bookId: 'OL1168083W', page: '1' } },
+    { params: { bookId: 'OL20716197W', page: '1' } },
+  ];
+  return { paths, fallback: true };
+}
+
+export async function getStaticProps({ params }) {
+  const { bookId, page } = params;
+  const offset = page * 50 - 50;
+  const res = await fetch(
+    `https://openlibrary.org/works/${bookId}/editions.json?offset=${offset}`
+  );
+
+  try {
+    const data = await res.json();
+    return {
+      props: {
+        data,
+        error: data.error ? true : false,
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        data: undefined,
+        error: true,
+      },
+    };
+  }
+}
 
 export default Home;
