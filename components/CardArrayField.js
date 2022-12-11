@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EditionCardArrayField = ({ title, array, defaultValue = '-' }) => {
+const CardArrayField = ({ title, array, defaultValue = '-' }) => {
   return (
     <p>
       <b>{`${title}: `}</b>
@@ -9,4 +9,4 @@ const EditionCardArrayField = ({ title, array, defaultValue = '-' }) => {
   );
 };
 
-export default EditionCardArrayField;
+export default CardArrayField;
