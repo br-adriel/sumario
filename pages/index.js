@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
 import useSWR from 'swr';
@@ -11,13 +11,12 @@ import BooksDataContext from '../context/BooksDataContext';
 import SelectedBookContext from '../context/SelectedBookContext';
 
 const Home = () => {
-  const { booksData, setBooksData, booksFetchUrl, setBooksFetchUrl } =
+  const { setBooksData, booksFetchUrl, setBooksFetchUrl, setListedBooks } =
     useContext(BooksDataContext);
-  const { setSelectedBook } = useContext(SelectedBookContext);
+  const { setSelectedBook, setSearchValue } = useContext(SelectedBookContext);
   const pageNumber = useRef(1);
-
   const { data, error } = useSWR(booksFetchUrl, async (url) => {
-    if (url === '' || error) return { docs: [], q: '' };
+    if (url === '' || error) return {};
     const res = await fetch(url);
     const json = await res.json();
     return json;
@@ -40,12 +39,23 @@ const Home = () => {
     <Row>
       <StickyCol xs='12' md='4' className='pb-md-5 mb-md-3'>
         <StickyTop>
-          <Header />
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              setBooksData({});
+              setBooksFetchUrl('');
+              setSelectedBook({});
+              setSearchValue('');
+              setListedBooks([]);
+            }}
+          >
+            <Header />
+          </div>
           <SearchForm onSubmit={searchFormSubmit} />
         </StickyTop>
         <BookPreview />
       </StickyCol>
-      <Col xs='12' md='8' className='pb-5'>
+      <Col xs='12' md='8' className='pt-2 pb-5'>
         <ScrollInfinito
           onScrollEnd={() => {
             pageNumber.current = pageNumber.current + 1;
@@ -58,7 +68,7 @@ const Home = () => {
             });
           }}
         >
-          <BooksTable books={booksData} />
+          <BooksTable />
         </ScrollInfinito>
       </Col>
     </Row>

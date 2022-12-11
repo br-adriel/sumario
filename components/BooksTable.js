@@ -1,31 +1,34 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import sortArray from 'sort-array';
+import LoadingScreen from '../components/LoadingScreen';
+import Warning from '../components/Warning';
+import BooksDataContext from '../context/BooksDataContext';
 import SelectedBookContext from '../context/SelectedBookContext';
 import joinDocs from '../utils/joinDocs';
 import GenericTable from './GenericTable';
-import Warning from '../components/Warning';
 
-const BooksTable = ({ books }) => {
+const BooksTable = () => {
   const query = useRef('');
   const booksCount = useRef(0);
-  const [listedBooks, setListedBooks] = useState([]);
   const { selectedBook, setSelectedBook } = useContext(SelectedBookContext);
+  const { booksData, listedBooks, setListedBooks, booksFetchUrl } =
+    useContext(BooksDataContext);
 
   useEffect(() => {
-    if (books) {
-      if (query.current === books.q) {
-        if (books.docs && books.docs.length) {
+    if (booksData) {
+      if (query.current === booksData.q) {
+        if (booksData.docs && booksData.docs.length) {
           setListedBooks((prev) => {
-            return joinDocs(prev, books.docs);
+            return joinDocs(prev, booksData.docs);
           });
         }
       } else {
-        query.current = books.q;
-        booksCount.current = books.numFound;
-        setListedBooks(books.docs ? books.docs : []);
+        query.current = booksData.q;
+        booksCount.current = booksData.numFound;
+        setListedBooks(booksData.docs ? booksData.docs : []);
       }
     }
-  }, [books]);
+  }, [booksData]);
 
   const orderBooks = (by, desc = false) => {
     const currentBooks = [...listedBooks];
@@ -77,6 +80,9 @@ const BooksTable = ({ books }) => {
     },
   ];
 
+  if (!booksFetchUrl)
+    return <Warning message='Faça uma busca para encontrar obras' />;
+  if (!booksData && !listedBooks.length) return <LoadingScreen />;
   if (!listedBooks.length) return <Warning message='Nenhum livro encontrado' />;
   return (
     <>

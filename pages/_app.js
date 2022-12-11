@@ -12,6 +12,7 @@ export default function MyApp({ Component, pageProps }) {
   const [booksData, setBooksData] = useState({});
   const [searchValue, setSearchValue] = useState('');
   const [booksFetchUrl, setBooksFetchUrl] = useState('');
+  const [listedBooks, setListedBooks] = useState([]);
   return (
     <>
       <Head>
@@ -26,7 +27,14 @@ export default function MyApp({ Component, pageProps }) {
           value={{ selectedBook, setSelectedBook, searchValue, setSearchValue }}
         >
           <BooksDataContext.Provider
-            value={{ booksData, setBooksData, booksFetchUrl, setBooksFetchUrl }}
+            value={{
+              booksData,
+              setBooksData,
+              booksFetchUrl,
+              setBooksFetchUrl,
+              listedBooks,
+              setListedBooks,
+            }}
           >
             <Container>
               <Component {...pageProps} />
