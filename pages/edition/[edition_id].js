@@ -1,34 +1,20 @@
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import useSWR from 'swr';
 import AuthorCard from '../../components/AuthorCard';
 import EditionCard from '../../components/EditionCard';
 import Header from '../../components/Header';
 import fecthEdition from '../../utils/fetchEdition';
 
-const Edicao = () => {
-  const router = useRouter();
-  const { edition_id } = router.query;
+const Edicao = ({ data, error }) => {
   const [edicao, setEdicao] = useState();
-  const [url, setUrl] = useState('');
-
-  const { data, error } = useSWR(url, async (url) => {
-    if (url === '' || !edition_id) return undefined;
-    const result = await fecthEdition(url);
-    return result;
-  });
-
-  useEffect(() => {
-    setUrl(`https://openlibrary.org/books/${edition_id}.json`);
-  }, [edition_id]);
 
   useEffect(() => {
     setEdicao(data);
   }, [data]);
 
-  if (!edition_id || !edicao) return <h1>Carregando...</h1>;
+  if (error) return <h1>Edição desconhecida</h1>;
+  if (!edicao) return <h1>Carregando...</h1>;
   return (
     <>
       <Row>
@@ -64,5 +50,32 @@ const AuthorsWrapper = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
 `;
+
+export async function getStaticPaths() {
+  return { paths: [], fallback: true };
+}
+
+export async function getStaticProps({ params }) {
+  const { edition_id } = params;
+
+  try {
+    const data = await fecthEdition(
+      `https://openlibrary.org/books/${edition_id}.json`
+    );
+    return {
+      props: {
+        data,
+        error: data.error ? true : false,
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        data: undefined,
+        error: true,
+      },
+    };
+  }
+}
 
 export default Edicao;
