@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
+import styled from 'styled-components';
 import useSWR from 'swr';
 import AuthorCard from '../../components/AuthorCard';
 import EditionCard from '../../components/EditionCard';
@@ -41,9 +42,11 @@ const Edicao = () => {
           {!edicao.authors ? null : (
             <section>
               <h2>Autoria</h2>
-              {edicao.authors.map((author) => (
-                <AuthorCard author={author} />
-              ))}
+              <AuthorsWrapper>
+                {edicao.authors.map((author) => (
+                  <AuthorCard author={author} />
+                ))}
+              </AuthorsWrapper>
             </section>
           )}
         </div>
@@ -51,5 +54,15 @@ const Edicao = () => {
     </>
   );
 };
+
+const AuthorsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
 
 export default Edicao;

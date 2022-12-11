@@ -8,7 +8,7 @@ import ImagesCarousel from './ImagesCarousel';
 
 const AuthorCard = ({ author }) => {
   return (
-    <Card className='mb-2 mb-md-0 col-md-6'>
+    <Card>
       <Row>
         {author.photos ? (
           <Col xs='4'>
